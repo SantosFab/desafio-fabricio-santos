@@ -10,18 +10,18 @@ class CaixaDaLanchonete {
         combo2: 7.50,
     };
 
-    calcularValorDaCompra(metodoDePagamento, itens) {
-        const multiplier = {
-            dinheiro: 0.95,
-            debito: 1,
-            credito: 1.03
-        }
+    static multiplier = {
+        dinheiro: 0.95,
+        debito: 1,
+        credito: 1.03
+    }
 
-        if (!(metodoDePagamento in multiplier)) {
+    calcularValorDaCompra(metodoDePagamento, itens) {
+        if (!(metodoDePagamento in CaixaDaLanchonete.multiplier)) {
             return 'Forma de pagamento inválida!';
         }
 
-        return this.checkItens(itens, multiplier[metodoDePagamento])
+        return this.checkItens(itens, CaixaDaLanchonete.multiplier[metodoDePagamento])
     }
 
     checkItens(itens, multiplier){
@@ -44,9 +44,10 @@ class CaixaDaLanchonete {
             if (isNaN(parseQuantity) || parseQuantity <= 0) {
                 return 'Quantidade inválida!';
             }
-            
+         
             amount += parseQuantity * CaixaDaLanchonete.products[product] * multiplier
         }
+        
         if (
             (listOfProducts.includes('queijo') && !listOfProducts.includes('sanduiche')) ||
             (listOfProducts.includes('chantily') && !listOfProducts.includes('cafe'))
