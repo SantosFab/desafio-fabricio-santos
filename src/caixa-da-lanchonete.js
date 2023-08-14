@@ -17,16 +17,12 @@ class CaixaDaLanchonete {
     }
 
     calcularValorDaCompra(metodoDePagamento, itens) {
+        let amount = 0;
+        let listOfProducts = [];
+
         if (!(metodoDePagamento in CaixaDaLanchonete.multiplier)) {
             return 'Forma de pagamento inválida!';
         }
-
-        return this.checkItens(itens, CaixaDaLanchonete.multiplier[metodoDePagamento])
-    }
-
-    checkItens(itens, multiplier){
-        let amount = 0;
-        let listOfProducts = [];
 
         if (!itens || itens.length <=0) {
             return 'Não há itens no carrinho de compra!';
@@ -45,7 +41,7 @@ class CaixaDaLanchonete {
                 return 'Quantidade inválida!';
             }
          
-            amount += parseQuantity * CaixaDaLanchonete.products[product] * multiplier
+            amount += parseQuantity * CaixaDaLanchonete.products[product] * CaixaDaLanchonete.multiplier[metodoDePagamento]
         }
         
         if (
